@@ -7,12 +7,19 @@ from gtts import gTTS
 import pygame
 import io
 import sys
+from dotenv import load_dotenv
 
-# Load OpenAI API key from environment variable
-openai.api_key = os.getenv('OPENAI_API_KEY')
+# Load environment variables from .env file
+load_dotenv(os.path.join(os.path.dirname(__file__), '..', '.env'))
 
-if not openai.api_key:
+# Initialize OpenAI client
+client = openai.OpenAI(
+    api_key=os.getenv('OPENAI_API_KEY')
+)
+
+if not os.getenv('OPENAI_API_KEY'):
     print("Error: OPENAI_API_KEY environment variable not set")
+    print("Please add your OpenAI API key to the .env file")
     sys.exit(1)
 
 # Image encoding, code provided
@@ -26,9 +33,9 @@ def analyze_image_with_openai(image_path, prompt="Analyze this image and describ
         # Encode the image
         base64_image = encode_image(image_path)
         
-        # Create the API request
-        response = openai.chat.completions.create(
-            model="gpt-4-vision-preview",
+        # Create the API request using the new client
+        response = client.chat.completions.create(
+            model="gpt-4o",  # Updated to use gpt-4o which supports vision
             messages=[
                 {
                     "role": "user",
