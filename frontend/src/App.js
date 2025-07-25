@@ -73,7 +73,7 @@ function App() {
       {/* Sensor Readings Section */}
       <div className="sensors-grid">
         <div className="sensor-box temperature">
-          <div className="sensor-icon"></div>
+          
           <div className="sensor-label">Temperature</div>
           <div className="sensor-value">
             {sensorData.temperature !== null ? `${sensorData.temperature}°C` : 'No Data'}
@@ -81,7 +81,7 @@ function App() {
         </div>
 
         <div className="sensor-box humidity">
-          <div className="sensor-icon"></div>
+          
           <div className="sensor-label">Humidity</div>
           <div className="sensor-value">
             {sensorData.humidity !== null ? `${sensorData.humidity}%` : 'No Data'}
@@ -89,7 +89,7 @@ function App() {
         </div>
 
         <div className="sensor-box light">
-          <div className="sensor-icon"></div>
+          
           <div className="sensor-label">Light Level</div>
           <div className="sensor-value">
             {sensorData.light !== null ? sensorData.light : 'No Data'}
@@ -97,7 +97,7 @@ function App() {
         </div>
 
         <div className="sensor-box ultrasonic">
-          <div className="sensor-icon"></div>
+         
           <div className="sensor-label">Distance</div>
           <div className="sensor-value">
             {sensorData.ultrasonic !== null ? `${sensorData.ultrasonic} cm` : 'No Data'}
