@@ -9,7 +9,7 @@ function App() {
   const [displayText, setDisplayText] = useState("");
   const [sendStatus, setSendStatus] = useState("");
   
-  // Sensor readings state
+  
   const [sensorData, setSensorData] = useState({
     temperature: null,
     humidity: null,
@@ -25,7 +25,7 @@ function App() {
       setTimeout(() => setPictureStatus(""), 3000);
     });
 
-    // Listen for sensor data
+    
     socket.on('temp', (data) => {
       setSensorData(prev => ({ ...prev, temperature: data }));
     });
@@ -55,7 +55,7 @@ function App() {
     if (displayText.trim()) {
       socket.emit('display', displayText);
       setSendStatus("Text sent to OLED!");
-      setTimeout(() => setSendStatus(""), 2000); // Clear status after 2 seconds
+      setTimeout(() => setSendStatus(""), 2000); 
     } else {
       setSendStatus("Please enter some text!");
       setTimeout(() => setSendStatus(""), 2000);
@@ -73,7 +73,7 @@ function App() {
       {/* Sensor Readings Section */}
       <div className="sensors-grid">
         <div className="sensor-box temperature">
-          <div className="sensor-icon">🌡️</div>
+          <div className="sensor-icon"></div>
           <div className="sensor-label">Temperature</div>
           <div className="sensor-value">
             {sensorData.temperature !== null ? `${sensorData.temperature}°C` : 'No Data'}
@@ -81,7 +81,7 @@ function App() {
         </div>
 
         <div className="sensor-box humidity">
-          <div className="sensor-icon">💧</div>
+          <div className="sensor-icon"></div>
           <div className="sensor-label">Humidity</div>
           <div className="sensor-value">
             {sensorData.humidity !== null ? `${sensorData.humidity}%` : 'No Data'}
@@ -89,7 +89,7 @@ function App() {
         </div>
 
         <div className="sensor-box light">
-          <div className="sensor-icon">💡</div>
+          <div className="sensor-icon"></div>
           <div className="sensor-label">Light Level</div>
           <div className="sensor-value">
             {sensorData.light !== null ? sensorData.light : 'No Data'}
@@ -97,7 +97,7 @@ function App() {
         </div>
 
         <div className="sensor-box ultrasonic">
-          <div className="sensor-icon">📏</div>
+          <div className="sensor-icon"></div>
           <div className="sensor-label">Distance</div>
           <div className="sensor-value">
             {sensorData.ultrasonic !== null ? `${sensorData.ultrasonic} cm` : 'No Data'}
@@ -116,7 +116,7 @@ function App() {
             onKeyPress={handleKeyPress}
             placeholder="Enter text to display on OLED..."
             className="text-input"
-            maxLength={100} // Limit text length for OLED display
+            maxLength={100}
           />
           <button 
             onClick={handleSendText}
