@@ -10,8 +10,8 @@ API_KEY = os.getenv('OPENAI_API_KEY')
 # Method 2: If environment variable not set, provide a placeholder
 if not API_KEY:
     print("Warning: OPENAI_API_KEY environment variable not set!")
-    # You can manually set it here for testing (NOT for production)
-    # API_KEY = "your-actual-key-here"
+    print("Please set it using: $env:OPENAI_API_KEY = 'your-api-key-here'")
+    # API_KEY = "your-api-key-here"  # Uncomment and replace for testing only
 
 # Method 3: Load from a separate config file (create config.py and add to .gitignore)
 # try:
