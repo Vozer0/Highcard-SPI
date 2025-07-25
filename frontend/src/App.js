@@ -68,36 +68,37 @@ function App() {
     }
   };
 
+  const handleTakePicture = () => {
+    setPictureStatus("Taking picture and analyzing...");
+    socket.emit('take_picture');
+  };
+
   return (
     <div className="app">
       {/* Sensor Readings Section */}
       <div className="sensors-grid">
-        <div className="sensor-box temperature">
-          
+        <div className="sensor-box">
           <div className="sensor-label">Temperature</div>
           <div className="sensor-value">
             {sensorData.temperature !== null ? `${sensorData.temperature}°C` : 'No Data'}
           </div>
         </div>
 
-        <div className="sensor-box humidity">
-          
+        <div className="sensor-box">
           <div className="sensor-label">Humidity</div>
           <div className="sensor-value">
             {sensorData.humidity !== null ? `${sensorData.humidity}%` : 'No Data'}
           </div>
         </div>
 
-        <div className="sensor-box light">
-          
+        <div className="sensor-box">
           <div className="sensor-label">Light Level</div>
           <div className="sensor-value">
             {sensorData.light !== null ? sensorData.light : 'No Data'}
           </div>
         </div>
 
-        <div className="sensor-box ultrasonic">
-         
+        <div className="sensor-box">
           <div className="sensor-label">Distance</div>
           <div className="sensor-value">
             {sensorData.ultrasonic !== null ? `${sensorData.ultrasonic} cm` : 'No Data'}
@@ -138,11 +139,25 @@ function App() {
         </div>
       </div>
 
-      {pictureStatus && (
-        <div className="picture-status">
-          {pictureStatus}
-        </div>
-      )}
+      {/* AI Camera Analysis Section */}
+      <div className="camera-container">
+        <h2>ESP32 Camera AI Analysis</h2>
+        <p>Take a picture with your ESP32 camera and get an AI description with audio</p>
+        
+        <button 
+          onClick={handleTakePicture}
+          className="camera-button"
+          disabled={pictureStatus && pictureStatus.includes('Taking')}
+        >
+          📸 Take Picture & Analyze
+        </button>
+
+        {pictureStatus && (
+          <div className={`status-message ${pictureStatus.includes('successfully') ? 'success' : pictureStatus.includes('Taking') ? 'info' : 'error'}`}>
+            {pictureStatus}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

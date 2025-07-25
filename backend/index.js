@@ -122,24 +122,37 @@ io.on("connection", (socket) => {
     console.log('📸 Taking picture and getting AI description...');
     
     // Execute the Python script
-    const pythonProcess = spawn('python3', ['../AI/receive.py'], {
+    const pythonProcess = spawn('python', ['../AI/receive.py', 'get_description'], {
       cwd: __dirname
     });
 
+    let outputData = '';
+    let errorData = '';
+
     pythonProcess.stdout.on('data', (data) => {
+      outputData += data.toString();
       console.log(`Python output: ${data}`);
     });
 
     pythonProcess.stderr.on('data', (data) => {
+      errorData += data.toString();
       console.error(`Python error: ${data}`);
     });
 
     pythonProcess.on('close', (code) => {
       console.log(`Python script finished with code ${code}`);
       if (code === 0) {
-        socket.emit('picture_taken', { success: true, message: 'Picture analyzed successfully!' });
+        socket.emit('picture_taken', { 
+          success: true, 
+          message: 'Picture analyzed successfully!',
+          output: outputData
+        });
       } else {
-        socket.emit('picture_taken', { success: false, message: 'Failed to analyze picture' });
+        socket.emit('picture_taken', { 
+          success: false, 
+          message: 'Failed to analyze picture',
+          error: errorData
+        });
       }
     });
   });
