@@ -17,7 +17,7 @@ def main():
         # Initialize OLED display
         clear_display()
         display_text("Connecting...")
-        connect_internet("SM-Vozero", password="DVoce701204") #ssid (wifi name), pass
+        connect_internet("SM-Vozer0", password="DVoce701204") #ssid (wifi name), pass
         
         # HiveMQ Cloud connection - Cluster 2
         client = connect_mqtt("09f1b50573094b6894b56ef79a8f1140.s1.eu.hivemq.cloud", "David2", "High_Card16")

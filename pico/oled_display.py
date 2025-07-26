@@ -3,10 +3,32 @@ import ssd1306
 from time import sleep
 
 # Initialize I2C bus 0 with your pins
-i2c = I2C(0, scl=Pin(5), sda=Pin(4), freq=400000)
+i2c = I2C(0, scl=Pin(9), sda=Pin(8), freq=100000)  # Lower frequency
 
-# Create display object for 128x64 display
-oled = ssd1306.SSD1306_I2C(128, 64, i2c, addr=0x3C)
+# Scan for I2C devices - for debugging
+print("I2C scan:", [hex(addr) for addr in i2c.scan()])
+
+# Add delay before OLED initialization
+sleep(0.5)
+
+# Try basic I2C communication test first
+try:
+    # Test basic communication
+    i2c.writeto(0x3C, bytes([0x00, 0xAE]))  # Display off command
+    print("Basic I2C communication successful!")
+    
+    # Create display object for 128x64 display
+    oled = ssd1306.SSD1306_I2C(128, 64, i2c, addr=0x3C)
+    print("OLED initialized successfully!")
+    
+except Exception as e:
+    print(f"Error during OLED setup: {e}")
+    # Create a dummy oled object to prevent other errors
+    class DummyOled:
+        def fill(self, val): pass
+        def text(self, text, x, y): pass
+        def show(self): pass
+    oled = DummyOled()
 
 
 def wrap_text(text, max_width, oled, line_height=10):

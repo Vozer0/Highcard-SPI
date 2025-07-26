@@ -1,8 +1,8 @@
 #include "WifiCam.hpp"
 #include <WiFi.h>
 
-static const char* WIFI_SSID = "Jerard";
-static const char* WIFI_PASS = "jerarda32";
+static const char* WIFI_SSID = "SM-Vozer0";
+static const char* WIFI_PASS = "DVoce701204";
 
 esp32cam::Resolution initialResolution;
 
