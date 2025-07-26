@@ -118,8 +118,12 @@ io.on("connection", (socket) => {
 
   // Listen for messages from the frontend
   socket.on('display', (message) => {
-    console.log('Received message from frontend:', message);
-    client.publish("display", message.toString());
+    console.log('🔥 Received message from frontend:', message);
+    console.log('📡 Publishing to MQTT topic "display"...');
+    
+    const result = client.publish("display", message.toString());
+    console.log('📤 MQTT publish result:', result);
+    console.log('✅ Message sent to MQTT successfully');
   });
 
   // Handle take picture request
