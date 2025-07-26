@@ -1,6 +1,7 @@
 from simple import MQTTClient
 import ssl
 from time import sleep
+from oled_display import display_text
 
 
 class sslWrap:
@@ -10,7 +11,6 @@ class sslWrap:
 
 def message_callback(topic, msg):
     """Handle incoming MQTT messages"""
-    from oled_display import display_text
     
     topic_str = topic.decode('utf-8')
     message = msg.decode('utf-8')
