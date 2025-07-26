@@ -103,7 +103,7 @@ def text_to_speech(text, output_file="description.wav"):
 # Can we put everything together?
 def complete_image_analysis(image_path, custom_prompt=None):
     """
-    Complete pipeline: analyze image with OpenAI and convert to speech
+    Complete pipeline: analyze image with OpenAI and return text description
     """
     default_prompt = ("Analyze this image and provide a detailed description. "
                      "Focus on objects, people, activities, and the overall scene. "
@@ -117,13 +117,13 @@ def complete_image_analysis(image_path, custom_prompt=None):
     description = analyze_image_with_openai(image_path, prompt)
     
     if description:
-        print("Creating audio description...")
-        audio_path = text_to_speech(description)
+        print("Analysis completed successfully!")
+        print(f"Description: {description}")
         
         return {
             "success": True,
             "description": description,
-            "audio_path": audio_path
+            "audio_path": None  # No audio generation needed
         }
     else:
         return {

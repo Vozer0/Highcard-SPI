@@ -16,17 +16,22 @@ const io = new Server(server, {
   }
 });
 
-const CLIENTID = "frontend";
+const CLIENTID = "backend_" + Math.random().toString(16).substr(2, 8);
+
+console.log(`Connecting to MQTT with client ID: ${CLIENTID}`);
+console.log(`MQTT URL: ${process.env.CONNECT_URL}`);
+console.log(`MQTT User: ${process.env.MQTT_USER}`);
 
 const client = MQTT.connect(process.env.CONNECT_URL, {
   clientId: CLIENTID,
   clean: true,
-  connectTimeout: 3000,
+  connectTimeout: 15000,
   username: process.env.MQTT_USER,
   password: process.env.MQTT_PASS,
-  reconnectPeriod: 10000,
-  debug: true,
-  rejectUnauthorized: false // Add this line for testing, should be removed in production
+  reconnectPeriod: 5000,
+  keepalive: 60,
+  rejectUnauthorized: false,
+  protocolVersion: 4
 });
 
 // Used for debugging 
@@ -121,8 +126,8 @@ io.on("connection", (socket) => {
   socket.on('take_picture', () => {
     console.log('📸 Taking picture and getting AI description...');
     
-    // Execute the Python script
-    const pythonProcess = spawn('python', ['../AI/receive.py', 'get_description'], {
+    // Execute the Python script with full path
+    const pythonProcess = spawn('C:/Users/dvoce/AppData/Local/Programs/Python/Python313/python.exe', ['../AI/receive.py', 'get_description'], {
       cwd: __dirname
     });
 
@@ -142,9 +147,21 @@ io.on("connection", (socket) => {
     pythonProcess.on('close', (code) => {
       console.log(`Python script finished with code ${code}`);
       if (code === 0) {
+        // Extract AI description from output
+        let aiDescription = null;
+        const startMarker = 'AI_DESCRIPTION_START';
+        const endMarker = 'AI_DESCRIPTION_END';
+        
+        if (outputData.includes(startMarker) && outputData.includes(endMarker)) {
+          const startIndex = outputData.indexOf(startMarker) + startMarker.length;
+          const endIndex = outputData.indexOf(endMarker);
+          aiDescription = outputData.substring(startIndex, endIndex).trim();
+        }
+        
         socket.emit('picture_taken', { 
           success: true, 
           message: 'Picture analyzed successfully!',
+          description: aiDescription || 'Analysis completed but no description found',
           output: outputData
         });
       } else {

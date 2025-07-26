@@ -34,13 +34,13 @@ def download_image():
 # Download the image and get a response from openai
 def analyze_esp32_image():
     """
-    Complete pipeline: Download image from ESP32, analyze with OpenAI, and create audio
+    Complete pipeline: Download image from ESP32, analyze with OpenAI, and return text description
     """
     print("Starting ESP32 image analysis pipeline...")
     
     # Step 1: Download the image
     if not download_image():
-        print("Failed to download image from ESP32")
+        print("ERROR: Failed to download image from ESP32")
         return False
     
     # Step 2: Analyze with OpenAI
@@ -49,12 +49,13 @@ def analyze_esp32_image():
     
     if result["success"]:
         print("Analysis completed successfully!")
-        print("Description:", result["description"])
-        if result["audio_path"]:
-            print("Audio description created and played!")
+        # Output the description in a format the backend can parse
+        print(f"AI_DESCRIPTION_START")
+        print(result["description"])
+        print(f"AI_DESCRIPTION_END")
         return True
     else:
-        print("Analysis failed")
+        print("ERROR: Analysis failed")
         return False
 
 # Control when to take photo - can be called from command line or other scripts

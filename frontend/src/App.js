@@ -8,6 +8,7 @@ function App() {
   const [pictureStatus, setPictureStatus] = useState("");
   const [displayText, setDisplayText] = useState("");
   const [sendStatus, setSendStatus] = useState("");
+  const [aiDescription, setAiDescription] = useState(""); // New state for AI description
   
   
   const [sensorData, setSensorData] = useState({
@@ -22,6 +23,9 @@ function App() {
     
     socket.on('picture_taken', data => {
       setPictureStatus(data.message);
+      if (data.success && data.description) {
+        setAiDescription(data.description);
+      }
       setTimeout(() => setPictureStatus(""), 3000);
     });
 
@@ -142,7 +146,7 @@ function App() {
       {/* AI Camera Analysis Section */}
       <div className="camera-container">
         <h2>ESP32 Camera AI Analysis</h2>
-        <p>Take a picture with your ESP32 camera and get an AI description with audio</p>
+        <p>Take a picture with your ESP32 camera and get an AI description</p>
         
         <button 
           onClick={handleTakePicture}
@@ -155,6 +159,22 @@ function App() {
         {pictureStatus && (
           <div className={`status-message ${pictureStatus.includes('successfully') ? 'success' : pictureStatus.includes('Taking') ? 'info' : 'error'}`}>
             {pictureStatus}
+          </div>
+        )}
+
+        {/* AI Description Display */}
+        {aiDescription && (
+          <div className="ai-description-container">
+            <h3>🤖 AI Analysis Result:</h3>
+            <div className="ai-description-text">
+              {aiDescription}
+            </div>
+            <button 
+              onClick={() => setAiDescription("")}
+              className="clear-description-button"
+            >
+              Clear Description
+            </button>
           </div>
         )}
       </div>
