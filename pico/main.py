@@ -1,10 +1,19 @@
 from connections import connect_mqtt, connect_internet
-from oled_display import display_text, clear_display
+from oled_display import display_text, clear_display, oled
 from time import sleep
 
 
 def main():
     try:
+        # Test OLED hardware
+        print("Testing OLED...")
+        oled.fill(1)  # Fill with white
+        oled.show()
+        sleep(2)
+        oled.fill(0)  # Clear
+        oled.text("OLED Test", 0, 0)
+        oled.show()
+        sleep(2)
         # Initialize OLED display
         clear_display()
         display_text("Connecting...")
