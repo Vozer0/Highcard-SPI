@@ -2,8 +2,8 @@ from machine import Pin, I2C
 import ssd1306
 from time import sleep
 
-# Initialize I2C bus 1 with your pins
-i2c = I2C(1, scl=Pin(13), sda=Pin(12), freq=400000)
+# Initialize I2C bus 0 with your pins
+i2c = I2C(0, scl=Pin(5), sda=Pin(4), freq=400000)
 
 # Create display object for 128x64 display
 oled = ssd1306.SSD1306_I2C(128, 64, i2c, addr=0x3C)
