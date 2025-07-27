@@ -152,7 +152,12 @@ Highcard-SPI/
 │   ├── main.py             # Main application
 │   ├── sensors_*.py        # Sensor modules
 │   ├── oled_display.py     # Display management
-│   └── connections.py      # Connectivity
+│   ├── connections.py      # Connectivity
+│   ├── ssd1306.py         # OLED driver
+│   ├── debug/             # Debug and diagnostic files
+│   ├── tests/             # Testing and validation files
+│   ├── fixes/             # Hardware fix implementations
+│   └── archive/           # Legacy code and old versions
 ├── backend/                # Node.js backend
 │   ├── index.js           # Main server
 │   └── package.json       # Dependencies
@@ -169,13 +174,13 @@ Highcard-SPI/
 ## Development
 
 ### Testing
-- `system_test.py` - Comprehensive system testing
-- `sensor_quality_test.py` - Sensor validation
-- `distance_speed_test.py` - Performance testing
-- `triple_check_verification.py` - Multi-stage verification
+- `tests/system_test.py` - Comprehensive system testing
+- `tests/sensor_quality_test.py` - Sensor validation
+- `tests/distance_speed_test.py` - Performance testing
+- `tests/triple_check_verification.py` - Multi-stage verification
 
 ### Debugging
-- Individual component testing files
+- `debug/` folder - Individual component testing files
 - Debug modes for sensors and OLED
 - MQTT connection testing
 - Real-time monitoring tools
