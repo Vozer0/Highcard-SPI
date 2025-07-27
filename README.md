@@ -148,6 +148,12 @@ python send_to_openai.py
 
 ```
 Highcard-SPI/
+├── docs/                   # All project documentation
+│   ├── README.md          # Documentation index
+│   ├── AI_SETUP.md        # AI services setup
+│   ├── HaCK_README.md     # HaCK project info
+│   ├── REALTIME_UPDATES.md # Real-time features
+│   └── SYSTEM_VERIFICATION.md # Testing procedures
 ├── pico/                    # MicroPython hardware code
 │   ├── main.py             # Main application
 │   ├── sensors_*.py        # Sensor modules
@@ -188,3 +194,12 @@ Highcard-SPI/
 ## Contributing
 
 This is an IoT sensor monitoring system designed for real-time environmental monitoring with AI-powered insights. The modular architecture allows for easy extension and customization of sensor types, data processing, and visualization capabilities.
+
+## 📚 Additional Documentation
+
+For detailed setup guides, testing procedures, and project-specific information, see the **[docs/](docs/)** folder:
+- [AI Setup Guide](docs/AI_SETUP.md)
+- [System Verification](docs/SYSTEM_VERIFICATION.md) 
+- [Real-time Updates](docs/REALTIME_UPDATES.md)
+- [HaCK Project Info](docs/HaCK_README.md)
+- [Complete Documentation Index](docs/README.md)
