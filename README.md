@@ -202,4 +202,5 @@ For detailed setup guides, testing procedures, and project-specific information,
 - [System Verification](docs/SYSTEM_VERIFICATION.md) 
 - [Real-time Updates](docs/REALTIME_UPDATES.md)
 - [HaCK Project Info](docs/HaCK_README.md)
+- [**Troubleshooting Guide**](docs/TROUBLESHOOTING_GUIDE.md) - **Debug your current system**
 - [Complete Documentation Index](docs/README.md)
