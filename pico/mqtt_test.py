@@ -10,7 +10,7 @@ def quick_mqtt_test():
     print("=== QUICK MQTT TEST ===")
     
     # Setup OLED for feedback
-    i2c = I2C(0, scl=Pin(9), sda=Pin(8), freq=200000)
+    i2c = I2C(0, scl=Pin(9), sda=Pin(8), freq=200000)  # Back to working configuration
     oled = ssd1306.SSD1306_I2C(128, 64, i2c, addr=0x3C)
     
     def show_message(msg):

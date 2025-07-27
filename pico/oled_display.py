@@ -2,8 +2,8 @@ from machine import Pin, I2C
 import ssd1306
 from time import sleep
 
-# Initialize I2C bus 0 with your pins
-i2c = I2C(0, scl=Pin(9), sda=Pin(8), freq=200000)  # Working frequency for this display
+# Initialize I2C bus 0 with your working pins
+i2c = I2C(0, scl=Pin(9), sda=Pin(8), freq=200000)  # Back to working configuration
 
 # Scan for I2C devices - for debugging
 print("I2C scan:", [hex(addr) for addr in i2c.scan()])

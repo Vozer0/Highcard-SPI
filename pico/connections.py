@@ -107,3 +107,53 @@ def connect_internet(ssid, password=None):
     print(f'Connected on {ip}')
     return ip
 
+
+# Sensor data publishing functions for React integration
+def publish_sensor_data(client, temp=None, humidity=None, light=None, distance=None):
+    """
+    Publish individual sensor readings to MQTT topics that the backend expects
+    Backend subscribes to: 'temp', 'humidity', 'light', 'ultrasonic'
+    """
+    try:
+        if temp is not None:
+            client.publish(b"temp", str(temp).encode())
+            print(f"Published temperature: {temp}")
+            
+        if humidity is not None:
+            client.publish(b"humidity", str(humidity).encode())
+            print(f"Published humidity: {humidity}")
+            
+        if light is not None:
+            client.publish(b"light", str(light).encode())
+            print(f"Published light: {light}")
+            
+        if distance is not None:
+            client.publish(b"ultrasonic", str(distance).encode())
+            print(f"Published distance: {distance}")
+            
+        return True
+    except Exception as e:
+        print(f"Error publishing sensor data: {e}")
+        return False
+
+
+def send_all_sensors(client, sensor_data):
+    """
+    Send all sensor data from the sensors.py get_all_sensor_data() function
+    Expected format: {'temperature': 23, 'humidity': 60, 'light': 650, 'distance': 15.7}
+    """
+    try:
+        print(f"DEBUG: Sending sensor data: {sensor_data}")  # Debug print
+        result = publish_sensor_data(
+            client,
+            temp=sensor_data.get('temperature'),
+            humidity=sensor_data.get('humidity'), 
+            light=sensor_data.get('light'),
+            distance=sensor_data.get('distance')
+        )
+        print(f"DEBUG: Publish result: {result}")  # Debug print
+        return result
+    except Exception as e:
+        print(f"Error sending all sensors: {e}")
+        return False
+

@@ -128,8 +128,7 @@ def clear_display():
     """
     Clear the OLED display
     """
-    oled.fill(0)
-    oled.show()
+   
 
 
 # Example usage - only run if this file is executed directly
@@ -143,19 +142,17 @@ if __name__ == "__main__":
             #print("lumens " + lumens())
            
             
-            oled.fill(0)
+           
        
-            oled.text("lumens: " + lumens(), 0, 0)
-            oled.text("cm: " + ultra(), 0, 10)
+           
             
             
             temp, hum = humAndTemp()   # ➋  tuple unpacking
             temp = temp if temp is not None else -1
             hum  = hum  if hum  is not None else -1
-            oled.text("Hum:" + str(hum), 0,20)
-            oled.text("Temp:" + str(temp), 0,30)
            
-            oled.show()
+           
+            
             sleep(.5)
             
            

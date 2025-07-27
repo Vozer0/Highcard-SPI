@@ -12,10 +12,11 @@ function App() {
   
   
   const [sensorData, setSensorData] = useState({
-    temperature: null,
-    humidity: null,
-    light: null,
-    ultrasonic: null
+    temperature: 'Loading...',
+    humidity: 'Loading...',
+    light: 'Loading...',
+    ultrasonic: 'Loading...',
+    lastUpdated: null
   });
 
   useEffect(() => {
@@ -30,20 +31,41 @@ function App() {
     });
 
     
+    // Real-time sensor data handlers - always update to latest value
     socket.on('temp', (data) => {
-      setSensorData(prev => ({ ...prev, temperature: data }));
+      setSensorData(prev => ({ 
+        ...prev, 
+        temperature: data,
+        lastUpdated: new Date().toLocaleTimeString()
+      }));
+      console.log(`🌡️ Temperature updated: ${data}°C`);
     });
 
     socket.on('humidity', (data) => {
-      setSensorData(prev => ({ ...prev, humidity: data }));
+      setSensorData(prev => ({ 
+        ...prev, 
+        humidity: data,
+        lastUpdated: new Date().toLocaleTimeString()
+      }));
+      console.log(`💧 Humidity updated: ${data}%`);
     });
 
     socket.on('light', (data) => {
-      setSensorData(prev => ({ ...prev, light: data }));
+      setSensorData(prev => ({ 
+        ...prev, 
+        light: data,
+        lastUpdated: new Date().toLocaleTimeString()
+      }));
+      console.log(`💡 Light updated: ${data}`);
     });
 
     socket.on('ultrasonic', (data) => {
-      setSensorData(prev => ({ ...prev, ultrasonic: data }));
+      setSensorData(prev => ({ 
+        ...prev, 
+        ultrasonic: data,
+        lastUpdated: new Date().toLocaleTimeString()
+      }));
+      console.log(`📏 Distance updated: ${data}cm`);
     });
 
     return () => {
@@ -84,28 +106,40 @@ function App() {
         <div className="sensor-box">
           <div className="sensor-label">Temperature</div>
           <div className="sensor-value">
-            {sensorData.temperature !== null ? `${sensorData.temperature}°C` : 'No Data'}
+            {sensorData.temperature !== 'Loading...' ? `${sensorData.temperature}°C` : 'Loading...'}
+          </div>
+          <div className="sensor-timestamp">
+            {sensorData.lastUpdated && `Updated: ${sensorData.lastUpdated}`}
           </div>
         </div>
 
         <div className="sensor-box">
           <div className="sensor-label">Humidity</div>
           <div className="sensor-value">
-            {sensorData.humidity !== null ? `${sensorData.humidity}%` : 'No Data'}
+            {sensorData.humidity !== 'Loading...' ? `${sensorData.humidity}%` : 'Loading...'}
+          </div>
+          <div className="sensor-timestamp">
+            {sensorData.lastUpdated && `Updated: ${sensorData.lastUpdated}`}
           </div>
         </div>
 
         <div className="sensor-box">
           <div className="sensor-label">Light Level</div>
           <div className="sensor-value">
-            {sensorData.light !== null ? sensorData.light : 'No Data'}
+            {sensorData.light !== 'Loading...' ? sensorData.light : 'Loading...'}
+          </div>
+          <div className="sensor-timestamp">
+            {sensorData.lastUpdated && `Updated: ${sensorData.lastUpdated}`}
           </div>
         </div>
 
         <div className="sensor-box">
           <div className="sensor-label">Distance</div>
           <div className="sensor-value">
-            {sensorData.ultrasonic !== null ? `${sensorData.ultrasonic} cm` : 'No Data'}
+            {sensorData.ultrasonic !== 'Loading...' ? `${sensorData.ultrasonic} cm` : 'Loading...'}
+          </div>
+          <div className="sensor-timestamp">
+            {sensorData.lastUpdated && `Updated: ${sensorData.lastUpdated}`}
           </div>
         </div>
       </div>
